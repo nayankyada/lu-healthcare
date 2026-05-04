@@ -15,11 +15,42 @@
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: schema.json
+export type HomepageImplantStep = {
+  _type: "homepageImplantStep";
+  number: string;
+  label: string;
+  text: string;
+};
+
 export type Cta = {
   _type: "cta";
   label: string;
   href: string;
   openInNewTab?: boolean;
+};
+
+export type Homepage = {
+  _id: string;
+  _type: "homepage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  eyebrow: string;
+  headlineLine1: string;
+  headlineLine2: string;
+  subheadline: string;
+  body: string;
+  stepsSectionLabel: string;
+  steps: Array<
+    {
+      _key: string;
+    } & HomepageImplantStep
+  >;
+  visualPlaceholderLabel: string;
+  visualTagLabel: string;
+  visualTagTitle: string;
+  cta: Cta;
+  disclaimer: string;
 };
 
 export type SiteSettings = {
@@ -155,7 +186,9 @@ export type Slug = {
 };
 
 export type AllSanitySchemaTypes =
+  | HomepageImplantStep
   | Cta
+  | Homepage
   | SiteSettings
   | SanityImagePaletteSwatch
   | SanityImagePalette
@@ -185,10 +218,38 @@ export type SiteSettingsQueryResult = {
   disclaimer: string;
 } | null;
 
+// Source: sanity/lib/queries.ts
+// Variable: homepageQuery
+// Query: *[_type == "homepage" && _id == "homepage"][0] {   ...  }
+export type HomepageQueryResult = {
+  _id: "homepage";
+  _type: "homepage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  eyebrow: string;
+  headlineLine1: string;
+  headlineLine2: string;
+  subheadline: string;
+  body: string;
+  stepsSectionLabel: string;
+  steps: Array<
+    {
+      _key: string;
+    } & HomepageImplantStep
+  >;
+  visualPlaceholderLabel: string;
+  visualTagLabel: string;
+  visualTagTitle: string;
+  cta: Cta;
+  disclaimer: string;
+} | null;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     '\n  *[_type == "siteSettings" && _id == "siteSettings"][0] {\n   ...\n  }\n': SiteSettingsQueryResult;
+    '\n  *[_type == "homepage" && _id == "homepage"][0] {\n   ...\n  }\n': HomepageQueryResult;
   }
 }

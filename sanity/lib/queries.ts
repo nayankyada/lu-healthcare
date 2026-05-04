@@ -5,3 +5,9 @@ export const siteSettingsQuery = defineQuery(`
    ...
   }
 `);
+
+export const homepageQuery = defineQuery(`
+  *[_type == "homepage" && _id == "homepage"][0] {
+   ...
+  }
+`);
