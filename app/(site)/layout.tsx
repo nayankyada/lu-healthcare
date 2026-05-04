@@ -1,9 +1,11 @@
+import "@/app/globals.css";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import {siteConfig} from "@/lib/site";
+import {sanityFetch, SanityLive} from "@/sanity/lib/live";
+import {siteSettingsQuery} from "@/sanity/lib/queries";
 import type {Metadata} from "next";
 import {DM_Sans, Lora} from "next/font/google";
-import "./globals.css";
 
 const lora = Lora({
   variable: "--font-lora",
@@ -37,17 +39,20 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const {data: settings} = await sanityFetch({query: siteSettingsQuery});
+
   return (
     <html lang="en" className={`${lora.variable} ${dmSans.variable} h-full antialiased`}>
       <body className="bg-lu-bg text-lu-charcoal flex min-h-full flex-col font-sans">
-        <Header />
+        <Header data={settings} />
         <main className="flex-1">{children}</main>
-        <Footer />
+        <Footer data={settings} />
+        <SanityLive />
       </body>
     </html>
   );
