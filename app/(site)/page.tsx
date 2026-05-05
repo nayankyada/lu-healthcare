@@ -1,10 +1,9 @@
-
 import {sanityFetch} from "@/sanity/lib/live";
 import {homepageQuery} from "@/sanity/lib/queries";
 import type {Metadata} from "next";
-import { notFound } from "next/navigation";
+import {notFound} from "next/navigation";
 import {cache} from "react";
-import Homepage from "./_components/homepage";
+import LuHealthCard from "./_components/luHealthCard";
 
 const getHomepage = cache(async () => sanityFetch({query: homepageQuery}));
 
@@ -24,5 +23,10 @@ export default async function Home() {
   if (!data) {
     notFound();
   }
-  return <Homepage data={data} />;
+  return (
+    <section>
+      <h1 className="font-dark-blue py-8 text-center text-4xl">{data.headline}</h1>
+      <LuHealthCard data={data} />
+    </section>
+  );
 }
