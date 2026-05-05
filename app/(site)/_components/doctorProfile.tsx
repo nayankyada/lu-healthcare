@@ -18,7 +18,7 @@ export default function DoctorProfile({
   description: string;
 }) {
   return (
-    <div className="bg-dark-sapphire order-1 flex flex-col gap-4 rounded-2xl p-4 lg:order-2">
+    <div className="bg-dark-sapphire order-1 flex flex-col gap-8 md:gap-4 rounded-2xl p-4 md:p-8 lg:order-2">
       <SanityImage
         src={image}
         alt={alt}

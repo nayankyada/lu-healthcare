@@ -14,7 +14,7 @@ export default function SpecializationItem({
   description,
 }: SpecializationItemProps) {
   return (
-    <div className="bg-american-earth flex flex-col gap-4 rounded-2xl p-4 lg:flex-row">
+    <div className="bg-american-earth flex flex-col gap-8 lg:gap-4 rounded-2xl p-4 md:p-8 lg:p-4 lg:flex-row">
       <SanityImage
         src={image}
         alt={title}
