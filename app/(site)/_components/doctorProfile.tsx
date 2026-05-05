@@ -22,13 +22,13 @@ export default function DoctorProfile({
       <SanityImage
         src={image}
         alt={alt}
-        width={300}
-        height={300}
+        width={250}
+        height={250}
         className="w-full rounded-2xl"
       />
-      <div className="p-4">
+      <div>
         <Title title={name} />
-        <SubTitle subTitle={profession} />
+        <SubTitle subTitle={profession} className="mb-6 mt-2" />
         <Description description={description} />
       </div>
     </div>

@@ -8,10 +8,9 @@
   --color-dark-sapphire: #0c1c36;
   --color-american-earth: #112341;
 
-  /* ── Front Tracking ── */
-  --tracking-wider: 0.5rem;
-
   /* ── Front Line Height ── */
   --leading-wider: 2.5;
 }
-
+*{
+  box-sizing: border-box;
+}

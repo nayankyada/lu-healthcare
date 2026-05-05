@@ -4,7 +4,7 @@ import {homepageQuery} from "@/sanity/lib/queries";
 import type {Metadata} from "next";
 import { notFound } from "next/navigation";
 import {cache} from "react";
-import Card from "./_components/card";
+import Homepage from "./_components/homepage";
 
 const getHomepage = cache(async () => sanityFetch({query: homepageQuery}));
 
@@ -24,5 +24,5 @@ export default async function Home() {
   if (!data) {
     notFound();
   }
-  return <Card data={data} />;
+  return <Homepage data={data} />;
 }
