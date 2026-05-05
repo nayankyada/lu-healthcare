@@ -11,14 +11,7 @@ export const siteSettingsType = defineType({
       name: "general",
       title: "General",
     },
-    {
-      name: "header",
-      title: "Header",
-    },
-    {
-      name: "footer",
-      title: "Footer",
-    },
+   
   ],
   fields: [
     defineField({
@@ -30,50 +23,15 @@ export const siteSettingsType = defineType({
       group: "general",
       validation: (Rule) => Rule.required(),
     }),
-    defineField({
-      name: "headerLogoText",
-      title: "Header logo text",
-      description: "The prominent word or initials shown in the header next to the subtitle.",
-      type: "string",
-      group: "header",
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "headerLogoSub",
-      title: "Header logo subtitle",
-      description: "The smaller uppercase line beside the main logo text in the header.",
-      type: "string",
-      group: "header",
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "headerCta",
-      title: "Header CTA",
-      description: "The primary button in the header (label, link, and new-tab behaviour).",
-      type: "cta",
-      group: "header",
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "disclaimer",
-      title: "Disclaimer",
-      description: "Short legal or educational notice shown in the footer (plain text).",
-      type: "text",
-      rows: 2,
-      group: "footer",
-      validation: (Rule) => Rule.required(),
-    }),
+   
   ],
   preview: {
     select: {
       siteName: "siteName",
-      headerLogoText: "headerLogoText",
-      headerLogoSub: "headerLogoSub",
     },
-    prepare({siteName, headerLogoText, headerLogoSub}) {
+    prepare({siteName}) {
       return {
-        title:
-          siteName || [headerLogoText, headerLogoSub].filter(Boolean).join(" ") || "Site settings",
+        title: siteName || "Site settings",
       };
     },
   },
