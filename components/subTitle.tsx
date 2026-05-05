@@ -9,13 +9,13 @@ type Props = {
 
 export default function SubTitle({subTitle, className}: Props) {
   return (
-    <p
+    <h3
       className={cn(
         "leading-wider text-base font-medium tracking-[6px] lg:tracking-[8px] text-white/90 lg:text-lg",
         className,
       )}
     >
       {subTitle}
-    </p>
+    </h3>
   );
 }

@@ -8,13 +8,13 @@ type Props = {
 
 export default function Title({title, className}: Props) {
   return (
-    <p
+    <h3
       className={cn(
         "text-xl font-semibold tracking-[6px] text-white/90 lg:text-2xl lg:tracking-[8px]",
         className,
       )}
     >
       {title}
-    </p>
+    </h3>
   );
 }

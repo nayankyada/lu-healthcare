@@ -42,6 +42,7 @@ export type Homepage = {
   _updatedAt: string;
   _rev: string;
   seo: Seo;
+  headline: string;
   specialization: {
     title: string;
     description: string;
@@ -95,6 +96,18 @@ export type SiteSettings = {
   _updatedAt: string;
   _rev: string;
   siteName: string;
+  tagline: string;
+  defaultSeo: {
+    title: string;
+    description: string;
+    image: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  };
 };
 
 export type SanityImagePaletteSwatch = {
@@ -219,7 +232,7 @@ export type AllSanitySchemaTypes =
 
 // Source: sanity/lib/queries.ts
 // Variable: siteSettingsQuery
-// Query: *[_type == "siteSettings" && _id == "siteSettings"][0] {   ...  }
+// Query: *[_type == "siteSettings" && _id == "siteSettings"][0] {    ...,    defaultSeo {      title,      description,      image{        asset->{          ...,        }      }    },  }
 export type SiteSettingsQueryResult = {
   _id: "siteSettings";
   _type: "siteSettings";
@@ -227,6 +240,35 @@ export type SiteSettingsQueryResult = {
   _updatedAt: string;
   _rev: string;
   siteName: string;
+  tagline: string;
+  defaultSeo: {
+    title: string;
+    description: string;
+    image: {
+      asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash: string;
+        extension: string;
+        mimeType: string;
+        size: number;
+        assetId: string;
+        uploadId?: string;
+        path: string;
+        url: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
+      } | null;
+    };
+  };
 } | null;
 
 // Source: sanity/lib/queries.ts
@@ -239,6 +281,7 @@ export type HomepageQueryResult = {
   _updatedAt: string;
   _rev: string;
   seo: Seo;
+  headline: string;
   specialization: {
     title: string;
     description: string;
@@ -306,7 +349,7 @@ export type HomepageQueryResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '\n  *[_type == "siteSettings" && _id == "siteSettings"][0] {\n   ...\n  }\n': SiteSettingsQueryResult;
+    '\n  *[_type == "siteSettings" && _id == "siteSettings"][0] {\n    ...,\n    defaultSeo {\n      title,\n      description,\n      image{\n        asset->{\n          ...,\n        }\n      }\n    },\n  }\n': SiteSettingsQueryResult;
     '\n  *[_type == "homepage" && _id == "homepage"][0] {\n    ...,\n    specialization {\n      ...,\n      listItems[] {\n        title,\n        description,\n        image{\n          asset->{\n            ...,\n          }\n        }\n      }\n    },\n    doctorProfile {\n      name,\n      profession,\n      image{\n        asset->{\n          ...,\n        },\n      },\n      description,\n    }\n  }\n': HomepageQueryResult;
   }
 }

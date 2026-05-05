@@ -13,6 +13,10 @@ export const homepageType = defineType({
       title: "SEO",
     },
     {
+      name: "headline",
+      title: "Headline",
+    },
+    {
       name: "content",
       title: "Content",
     },
@@ -23,6 +27,13 @@ export const homepageType = defineType({
       title: "SEO",
       type: "seo",
       group: "seo",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "headline",
+      title: "Headline",
+      type: "string",
+      group: "headline",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
