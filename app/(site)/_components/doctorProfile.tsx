@@ -24,7 +24,8 @@ export default function DoctorProfile({
         alt={alt}
         width={250}
         height={250}
-        className="w-full rounded-2xl"
+        className="w-full rounded-2xl min-h-[250px] object-cover"
+        sizes="300px"
       />
       <div>
         <Title title={name} />

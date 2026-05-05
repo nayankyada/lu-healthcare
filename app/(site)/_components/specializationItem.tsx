@@ -21,6 +21,7 @@ export default function SpecializationItem({
         width={200}
         height={100}
         className="w-full rounded-2xl lg:w-[200px]"
+        sizes="300px"
       />
       <div className="lg:p-4 flex flex-col gap-4">
         <Title title={title} />
