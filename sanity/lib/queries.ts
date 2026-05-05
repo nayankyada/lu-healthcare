@@ -8,24 +8,28 @@ export const siteSettingsQuery = defineQuery(`
 
 export const homepageQuery = defineQuery(`
   *[_type == "homepage" && _id == "homepage"][0] {
-   ...,
-   specialization {
-   ...,
-    listItems[] {
-      title,
-      description,
-      image -> {
-        ...,
-      },
-    },
-   },
-   doctorProfile {
-    name,
-    profession,
-    image -> {
+    ...,
+    specialization {
       ...,
+      listItems[] {
+        title,
+        description,
+        image{
+          asset->{
+            ...,
+          }
+        }
+      }
     },
-    description,
-   },
+    doctorProfile {
+      name,
+      profession,
+      image{
+        asset->{
+          ...,
+        },
+      },
+      description,
+    }
   }
 `);

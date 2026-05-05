@@ -4,6 +4,14 @@
   --font-awesome: var(--font-awesome-local);
 
   /* ── Brand palette ── */
-  --color-light-blue: #102240;
   --color-dark-blue: #091430;
+  --color-dark-sapphire: #0c1c36;
+  --color-american-earth: #112341;
+
+  /* ── Front Tracking ── */
+  --tracking-wider: 0.5rem;
+
+  /* ── Front Line Height ── */
+  --leading-wider: 2.5;
 }
+

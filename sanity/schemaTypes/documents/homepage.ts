@@ -116,6 +116,8 @@ export const homepageType = defineType({
           validation: (Rule) => Rule.required(),
         }),
       ],
+      validation: (Rule) => Rule.required(),
+      group: "content",
     }),
   ],
   preview: {

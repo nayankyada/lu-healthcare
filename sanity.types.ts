@@ -15,18 +15,24 @@
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: schema.json
-export type HomepageImplantStep = {
-  _type: "homepageImplantStep";
-  number: string;
-  label: string;
-  text: string;
+export type SanityImageAssetReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
 };
 
-export type Cta = {
-  _type: "cta";
-  label: string;
-  href: string;
-  openInNewTab?: boolean;
+export type Seo = {
+  _type: "seo";
+  title?: string;
+  description?: string;
+  image: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
 };
 
 export type Homepage = {
@@ -35,22 +41,51 @@ export type Homepage = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  eyebrow: string;
-  headlineLine1: string;
-  headlineLine2: string;
-  subheadline: string;
-  body: string;
-  stepsSectionLabel: string;
-  steps: Array<
-    {
+  seo: Seo;
+  specialization: {
+    title: string;
+    description: string;
+    listItems: Array<{
+      title: string;
+      description: string;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
       _key: string;
-    } & HomepageImplantStep
-  >;
-  visualPlaceholderLabel: string;
-  visualTagLabel: string;
-  visualTagTitle: string;
-  cta: Cta;
-  disclaimer: string;
+    }>;
+  };
+  doctorProfile: {
+    name: string;
+    profession: string;
+    image: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    description: string;
+  };
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x: number;
+  y: number;
+  height: number;
+  width: number;
 };
 
 export type SiteSettings = {
@@ -60,10 +95,6 @@ export type SiteSettings = {
   _updatedAt: string;
   _rev: string;
   siteName: string;
-  headerLogoText: string;
-  headerLogoSub: string;
-  headerCta: Cta;
-  disclaimer: string;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -102,22 +133,6 @@ export type SanityImageMetadata = {
   thumbHash?: string;
   hasAlpha?: boolean;
   isOpaque?: boolean;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x: number;
-  y: number;
-  height: number;
-  width: number;
-};
-
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top: number;
-  bottom: number;
-  left: number;
-  right: number;
 };
 
 export type SanityFileAsset = {
@@ -186,16 +201,16 @@ export type Slug = {
 };
 
 export type AllSanitySchemaTypes =
-  | HomepageImplantStep
-  | Cta
+  | SanityImageAssetReference
+  | Seo
   | Homepage
+  | SanityImageCrop
+  | SanityImageHotspot
   | SiteSettings
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
   | SanityImageMetadata
-  | SanityImageHotspot
-  | SanityImageCrop
   | SanityFileAsset
   | SanityAssetSourceData
   | SanityImageAsset
@@ -212,37 +227,79 @@ export type SiteSettingsQueryResult = {
   _updatedAt: string;
   _rev: string;
   siteName: string;
-  headerLogoText: string;
-  headerLogoSub: string;
-  headerCta: Cta;
-  disclaimer: string;
 } | null;
 
 // Source: sanity/lib/queries.ts
 // Variable: homepageQuery
-// Query: *[_type == "homepage" && _id == "homepage"][0] {   ...  }
+// Query: *[_type == "homepage" && _id == "homepage"][0] {    ...,    specialization {      ...,      listItems[] {        title,        description,        image{          asset->{            ...,          }        }      }    },    doctorProfile {      name,      profession,      image{        asset->{          ...,        },      },      description,    }  }
 export type HomepageQueryResult = {
   _id: "homepage";
   _type: "homepage";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  eyebrow: string;
-  headlineLine1: string;
-  headlineLine2: string;
-  subheadline: string;
-  body: string;
-  stepsSectionLabel: string;
-  steps: Array<
-    {
-      _key: string;
-    } & HomepageImplantStep
-  >;
-  visualPlaceholderLabel: string;
-  visualTagLabel: string;
-  visualTagTitle: string;
-  cta: Cta;
-  disclaimer: string;
+  seo: Seo;
+  specialization: {
+    title: string;
+    description: string;
+    listItems: Array<{
+      title: string;
+      description: string;
+      image: {
+        asset: {
+          _id: string;
+          _type: "sanity.imageAsset";
+          _createdAt: string;
+          _updatedAt: string;
+          _rev: string;
+          originalFilename?: string;
+          label?: string;
+          title?: string;
+          description?: string;
+          altText?: string;
+          sha1hash: string;
+          extension: string;
+          mimeType: string;
+          size: number;
+          assetId: string;
+          uploadId?: string;
+          path: string;
+          url: string;
+          metadata?: SanityImageMetadata;
+          source?: SanityAssetSourceData;
+        } | null;
+      };
+    }>;
+  };
+  doctorProfile: {
+    name: string;
+    profession: string;
+    image: {
+      asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash: string;
+        extension: string;
+        mimeType: string;
+        size: number;
+        assetId: string;
+        uploadId?: string;
+        path: string;
+        url: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
+      } | null;
+    };
+    description: string;
+  };
 } | null;
 
 // Query TypeMap
@@ -250,6 +307,6 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     '\n  *[_type == "siteSettings" && _id == "siteSettings"][0] {\n   ...\n  }\n': SiteSettingsQueryResult;
-    '\n  *[_type == "homepage" && _id == "homepage"][0] {\n   ...\n  }\n': HomepageQueryResult;
+    '\n  *[_type == "homepage" && _id == "homepage"][0] {\n    ...,\n    specialization {\n      ...,\n      listItems[] {\n        title,\n        description,\n        image{\n          asset->{\n            ...,\n          }\n        }\n      }\n    },\n    doctorProfile {\n      name,\n      profession,\n      image{\n        asset->{\n          ...,\n        },\n      },\n      description,\n    }\n  }\n': HomepageQueryResult;
   }
 }
